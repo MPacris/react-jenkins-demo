@@ -28,9 +28,14 @@ pipeline {
                     env.PATH = "${dockerTool}/bin:${env.PATH}"
                 }
 
-                sh 'echo "Dockerizing the application"'
-                sh 'docker --version'
-                sh 'docker images'
+                sh '''
+                    echo "Dockerizing the application..."
+                    docker --version
+                    docker images
+                    docker build -t mpacris/react-jenkins-docker:latest
+                    docker images
+
+                '''
 
             }
         }
