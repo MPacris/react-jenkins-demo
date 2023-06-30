@@ -22,6 +22,10 @@ pipeline {
 
         stage('Docker'){
             steps {
+
+                withCredentials([usernamePassword(credentialsId: 'personal-docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "echo ${DOCKER_USERNAME}"
+                }
                 
                 script{
                     def dockerTool = tool name: 'docker-latest-tool', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
@@ -34,7 +38,6 @@ pipeline {
                     docker images
                     docker build -t mpacris/react-jenkins-docker:latest .
                     docker images
-
                 '''
 
             }
