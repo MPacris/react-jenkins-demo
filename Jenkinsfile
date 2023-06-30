@@ -49,6 +49,7 @@ q
 
         stage('Deploy New Image to AWS EC2'){
             steps {
+                sh 'echo "Deploying to EC2 instance..."'
                 // SSH into remote server
                 // Shut down the current running image
                 // pull the new image that was pushed
