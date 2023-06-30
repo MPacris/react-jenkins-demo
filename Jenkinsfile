@@ -30,6 +30,8 @@ pipeline {
 
                 sh 'echo "Dockerizing the application"'
                 sh 'docker --version'
+                sh 'docker images'
+
             }
         }
 
