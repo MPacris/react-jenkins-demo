@@ -9,6 +9,7 @@ pipeline {
     }
 
     stages {
+
         stage('Install Dependencies'){
             steps {
                 sh 'npm install'
@@ -25,10 +26,6 @@ pipeline {
 
         stage('Build Docker Image'){
             steps {
-
-                withCredentials([usernamePassword(credentialsId: 'personal-docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "echo ${DOCKER_USERNAME}"
-                }
                 
                 sh '''
                     docker build -t mpacris/react-jenkins-docker:latest .
@@ -39,9 +36,9 @@ pipeline {
         
         stage('Push Docker Image'){
             steps {
-
                 withCredentials([usernamePassword(credentialsId: 'personal-docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "echo ${DOCKER_USERNAME}"
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    sh 'docker push mpacris/react-jenkins-docker:latest'
                 }           
             }
         }
