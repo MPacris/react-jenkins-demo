@@ -32,7 +32,7 @@ pipeline {
                     echo "Dockerizing the application..."
                     docker --version
                     docker images
-                    docker build -t mpacris/react-jenkins-docker:latest
+                    docker build -t mpacris/react-jenkins-docker:latest .
                     docker images
 
                 '''
